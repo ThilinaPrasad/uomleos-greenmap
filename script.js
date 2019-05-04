@@ -155,7 +155,7 @@ setMarkers(locations);
         
         });
         google.maps.event.addListener(marker, 'mouseover', function () {
-          var content = "<b style='font-weight:bold;'>"+this.name+"</b>&nbsp;("+this.year+")<br>"+this.address+"<hr/>"+this.desc+"<br><br>&diams;&nbsp;Click on pin to view all projects on this location";
+          var content = "<b style='font-weight:bold;'>"+this.name+"</b>&nbsp;("+this.year+")<br>"+this.address+"<hr/><b>"+this.desc+"</b><br><br>&diams;&nbsp;Click on pin to view all projects on this location";
           infoWindow.setContent(content);
           infoWindow.open(map, this);
         })
