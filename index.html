@@ -1,0 +1,275 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UoM Leos Green Map</title>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+      <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+      <link rel="stylesheet" href="snow/snow.css">
+    <link href="https://fonts.googleapis.com/css?family=Qwigley" rel="stylesheet">
+  <style>
+
+      body{
+          overflow-x: hidden;
+      }
+
+      .footer{
+          position: fixed!important;
+          left: 0;
+          bottom: 0;
+          width: 100vw;
+          height: 50px;
+          background-image: url("footer_back.png");
+          background-size: 700px;
+          background-position: top;
+      }
+
+#pageLoad {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+
+
+    #map {
+      align-self: center;
+    }
+ 
+    .overlay{
+  position: absolute;
+        z-index: 5;
+ }
+
+.navbar{
+    width:100vw;
+    padding: 3px!important;
+}
+
+.nav-link{
+    color:rgba(109, 173, 137,1)!important;
+}
+
+.nav-link:hover{
+    color:rgba(109, 173, 137,0.5)!important;
+}
+
+      .brand{
+        font-family: 'Indie Flower', cursive;
+        font-weight: 700;
+        opacity: 0.8;
+      }
+
+      .brand:hover{
+          opacity: 0.5;
+          cursor: pointer;
+      }
+      .pmap-navbar{
+        background-color: rgba(255, 255, 255,1)!important;
+          background-image: url("nav_bar_back_top.png") , url("nav_bar_back_bottom.png");
+          background-position: top;
+          background-size: 1500px;
+      }
+      
+      .project-count, .hit-count{
+        padding:10px;
+       /* background-color: rgba(255,255,255,1);*/
+          background-image: url("nav_bar_back_top.png") , url("nav_bar_back_bottom.png");
+          background-position: top;
+          background-size: 750px;
+        border-radius: 5px;
+        top:63px;
+        right:2px;
+      }
+      
+      .hit-count{
+        top:103px;
+      }
+
+      .year-drop{
+        width: auto;
+        top:146px;
+        right:2px;
+        height:auto;
+      }
+
+      .year-drop:focus{
+        border: none;
+        outline: none;
+        
+      }
+
+      .award{
+        width: 150px;
+        height: 150px;
+        bottom:10px;
+        right:2px;
+      }
+
+      #animate3d {
+   -webkit-animation-name: spinner; 
+  -webkit-animation-timing-function: linear; 
+  -webkit-animation-iteration-count: infinite; 
+  -webkit-animation-duration: 4s; 
+  animation-name: spinner; 
+  animation-timing-function: linear; 
+  animation-iteration-count: infinite; 
+  animation-duration:4s; 
+  -webkit-transform-style: preserve-3d; 
+  -moz-transform-style: preserve-3d; 
+  -ms-transform-style: preserve-3d; 
+  transform-style: preserve-3d;
+}
+
+
+/* WebKit and Opera browsers */ 
+@-webkit-keyframes spinner { 
+  from 
+  { 
+    -webkit-transform: rotateY(0deg); 
+  } 
+  to { 
+    -webkit-transform: rotateY(-360deg); 
+  } 
+} 
+/* all other browsers */ 
+@keyframes spinner { 
+   from { 
+    -moz-transform: rotateY(0deg); 
+    -ms-transform: rotateY(0deg); 
+    transform: rotateY(0deg); 
+   } 
+   to 
+   { 
+    -moz-transform: rotateY(-360deg); 
+    -ms-transform: rotateY(-360deg); 
+    transform: rotateY(-360deg); 
+
+   } 
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(109, 173, 137,1);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(109, 173, 137,0.7);
+}
+  </style>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCamFIG1ilV1zm3KGW5P7QXwvF5m_LiHSQ" type="text/javascript"></script>
+</head>
+
+   <body>
+       
+   <!--  chrismas effect-->
+    <!--div id="snowflakeContainer">
+    <p class="snowflake">&#10054;</p>
+</div-->
+
+<!--iframe src="assets/snow/audio.mp3" allow="controls autoplay" loop="true" style="display:none" id="iframeAudio" allowullScreen>
+</iframe> 
+    <audio controls autoplay loop id="playAudio" style="display:none;">
+      <source src="assets/snow/audio.ogg" type="audio/ogg">
+        <source src="assets/snow/audio.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio-->
+        <!--  chrismas effect-->
+
+    <div style="background: url('preloader.gif') center no-repeat #fefcfe;" id="pageLoad"></div>
+<div id="app">
+       <nav class="navbar navbar-expand-md navbar-toggleable-xl navbar-light pmap-navbar overlay">
+        <div class="container">
+            <!-- Left Side Of Navbar -->
+            <a href="" class="navbar-brand brand" title="Reload Green Map" style="font-family: 'Qwigley', cursive; color: #6dad89;">
+                   <img src="nav_logo.png" style="width:50px;">
+                <font size="6" style="position: relative;top: 5px;">
+                    Green Map
+                </font>
+              </a>            
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li><a class="nav-link text-center" href="http://www.uomleos.org/" data-toggle="tooltip" data-placement="bottom" title="UoM Leos Web page"><i class="fas fa-globe fa-lg"></i></a></li>
+                <li><a class="nav-link text-center" href="https://www.facebook.com/uomleos" data-toggle="tooltip" data-placement="bottom"  title="UoM Leos Facebook page"><i class="fab fa-facebook fa-lg"></i></a></li>
+                <li><a class="nav-link text-center" href="https://www.instagram.com/uomleos" data-toggle="tooltip" data-placement="bottom"  title="UoM Leos Instagram page"><i class="fab fa-instagram fa-lg"></i><a></li>
+                <li><a class="nav-link text-center" href="https://www.linkedin.com/company/uomleos" data-toggle="tooltip" data-placement="bottom"  title="UoM Leos Linkedin page"><i class="fab fa-linkedin fa-lg"></i></a></li>
+                <li><a class="nav-link text-center" href="https://twitter.com/uomleos" data-toggle="tooltip" data-placement="bottom"  title="UoM Leos Twitter page"><i class="fab fa-twitter fa-lg"></i></a></li>
+                <li><a class="nav-link text-center" href="https://www.youtube.com/uomleos" data-toggle="tooltip" data-placement="bottom"  title="UoM Leos Youtube chanel"><i class="fab fa-youtube-square fa-lg"></i></a></li>
+                <li><a class="nav-link text-center" href="https://plus.google.com/+UOMLeos" data-toggle="tooltip" data-placement="bottom"  title="UoM Leos Google+ page"><i class="fab fa-google-plus-g fa-lg"></i></a></li>
+                <li><a class="nav-link text-center" href="http://www.uom-leos.blogspot.com" data-toggle="tooltip" data-placement="bottom"  title="UoM Leos Blogger"><i class="fab fa-blogger fa-lg"></i></a></li>
+                <li><a class="nav-link text-center" href="https://www.flickr.com/people/uomleos" data-toggle="tooltip" data-placement="bottom"  title="UoM Leos Flicker page"><i class="fab fa-flickr fa-lg"></i></a></li>
+                <li><a class="nav-link text-center" href="https://www.scribd.com/uomleos" data-toggle="tooltip" data-placement="bottom"  title="UoM Leos Scribd page"><i class="fab fa-scribd fa-lg"></i></a></li>
+            </ul>
+            </div>
+
+        </div>
+    </nav>
+    <h6 class="overlay project-count" id="projectCount"></h6>
+      <h6 class="overlay hit-count">Views : <img src="http://hitwebcounter.com/counter/counter.php?page=6941405&style=0006&nbdigits=5&type=page&initCount=380" title="free hits" Alt="free hits"   border="0" >
+    </h6>
+    <select class="overlay form-control year-drop" id="year">
+      <option value="0">All</option>
+      <option value="2018/19">2018/19</option>
+      <option value="2019/20">2019/20</option>
+    </select>
+    <img src="mostoutstanding.png" alt="" class="overlay award" id="animate3d">
+  <div id="map" style="height:100vh; width:100vw;" class="mx-auto d-block"></div>
+    <footer class="footer text-center" style="height: 80px;">
+        <img src="footer_logo.png" class="mx-auto d-block" style="height:50px;">
+        <span class="text-muted" id="footerLine" style="font-family: 'Indie Flower', cursive; font-weight: 700;"></span>
+    </footer>
+
+    </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+  <script type="text/javascript">
+  //Overlay section
+  
+  $(document).ready(function(){
+      
+      $('[data-toggle="tooltip"]').tooltip();
+      
+});
+
+var d = new Date();
+    var n = d.getFullYear();
+$("#footerLine").html('©GreenMap '+n+'  @<a href="http://www.uomleos.org/">UoM Leos</a>. All Rights Reserved.');
+
+
+  
+  </script>
+<!--
+  <script src="snow/snow.js"></script>
+-->
+</body>
+
+</html>
+
+</html>
