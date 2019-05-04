@@ -74,7 +74,7 @@ var password =  'greenmap@uomleos' //$("#password").val().trim();
 var   desc = $("#description").val().trim();
 console.log(desc);
 if(address!='' && name !='' && lat!='' && lon!=''  && year!='0' && desc !=''){
-
+    desc = desc.replace(/\r?\n/g, '<br />');
     if($.isNumeric( lat ) && $.isNumeric( lon )){
 
         if(password!= '' && password=='greenmap@uomleos'){
